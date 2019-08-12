@@ -1,0 +1,114 @@
+#include "hammersley.h"
+#include "../util.h"
+
+Hammersley::Hammersley() : Sampler() {
+    type = SAMP_HAMMERSLEY;
+    currentDim = 0;
+    currentSample = 0;
+}
+
+Hammersley::Hammersley(unsigned int seed) : Sampler(seed) {
+    type = SAMP_HAMMERSLEY;
+    currentDim = 0;
+    currentSample = 0;
+}
+
+Hammersley::Hammersley(unsigned int seedOne, unsigned int seedTwo) : Sampler(seedOne, seedTwo) {
+    type = SAMP_HAMMERSLEY;
+    currentDim = 0;
+    currentSample = 0;
+}
+
+void Hammersley::reseed() {
+    reseedSampler(sampSeed);
+    halton.init_random(sampleRNG);
+    scramble = sampleRNG.nextUInt();
+}
+
+void Hammersley::reseed(unsigned int seed) {
+    sampSeed = seed;
+    reseedSampler(sampSeed);
+    halton.init_random(sampleRNG);
+    scramble = sampleRNG.nextUInt();
+}
+
+void Hammersley::reseed(unsigned int seedOne, unsigned int seedTwo) {
+    sampSeed = seedOne;
+    reseedSampler(sampSeed);
+    halton.init_random(sampleRNG);
+    scramble = sampleRNG.nextUInt();
+}
+
+Hammersley::~Hammersley() {
+    // does nothing
+}
+
+Float Hammersley::next1D() {
+    Float sample = 0.0;
+
+    if (currentDim == 0) {
+        sample = Util::randomDigitScramble(float(currentSample * inv), scramble);
+    } else {
+        if (currentDim > 255) {
+            // cout << "PAST SAMPLE" << endl;
+            return sampleRNG.nextFloat();
+        }
+
+        sample = halton.sample(currentDim, currentSample);
+    }
+
+    currentDim++;
+    return sample;
+}
+
+Pdd Hammersley::next2D() {
+    return Pdd(next1D(), next1D());
+}
+
+void Hammersley::loggedNext1D(Float& dimVal, Float& jitVal) {
+    Float sample = 0.0;
+
+    if (currentDim == 0) {
+        sample = Util::randomDigitScramble(float(currentSample * inv), scramble);
+    } else {
+        if (currentDim > 255) {
+            // cout << "PAST SAMPLE" << endl;
+            jitVal = 0.0;
+            dimVal = sampleRNG.nextFloat();
+        }
+
+        sample = halton.sample(currentDim, currentSample);
+    }
+
+    currentDim++;
+    dimVal = sample;
+    jitVal = 0.0;
+}
+
+void Hammersley::nextSample() {
+    currentSample++;
+    currentDim = 0;
+}
+
+void Hammersley::reset() {
+    reseed(sampSeed, jitSeed);
+    currentSample = 0;
+    currentDim = 0;
+}
+
+Sampler* Hammersley::copy() {
+    return new Hammersley(sampSeed, jitSeed);
+}
+
+string Hammersley::getName() const {
+    return "hammersley";
+}
+
+bool Hammersley::correlated() const {
+    return true;
+}
+
+void Hammersley::setNumSamples(uint32_t param) {
+    numSamples = param;
+    inv = 1.0 / Float(param);
+}
