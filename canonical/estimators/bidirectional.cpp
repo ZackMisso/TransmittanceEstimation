@@ -1,7 +1,7 @@
 #include "bidirectional.h"
 #include <tgmath.h>
 
-Bidirectional::Bidirectional() : PrimaryEstimator() {
+Bidirectional::Bidirectional() : Estimator() {
     type = EST_BIDIR;
 }
 
@@ -171,24 +171,6 @@ Float Bidirectional::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
     return Tr;
 }
 
-Float Bidirectional::simpleT(Float ext, Float maj, int term, Float a, Float b) const
-{
-    // TODO
-    return 0.0;
-}
-
 string Bidirectional::getName() const {
     return "bidirectional";
-}
-
-string Bidirectional::getFullName() const {
-    return "bidirectional";
-}
-
-Estimator* Bidirectional::copy() const {
-    Bidirectional* estimator = new Bidirectional();
-
-    // TODO
-
-    return estimator;
 }

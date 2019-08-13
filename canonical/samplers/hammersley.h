@@ -18,8 +18,6 @@ public:
     virtual Float next1D();
     virtual Pdd next2D();
 
-    virtual void loggedNext1D(Float& dimVal, Float& jitVal);
-
     virtual void nextSample();
 
     virtual void reset();
@@ -27,8 +25,6 @@ public:
     virtual Sampler* copy();
 
     virtual string getName() const;
-
-    virtual bool correlated() const;
 
     virtual void setNumSamples(uint32_t param);
 

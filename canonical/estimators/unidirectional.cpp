@@ -1,7 +1,7 @@
 #include "unidirectional.h"
 #include <tgmath.h>
 
-Unidirectional::Unidirectional() : PrimaryEstimator() {
+Unidirectional::Unidirectional() : Estimator() {
     type = EST_UNI;
 }
 
@@ -42,22 +42,6 @@ Float Unidirectional::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
     return T;
 }
 
-Float Unidirectional::simpleT(Float ext, Float maj, int term, Float a, Float b) const
-{
-    // TODO
-    return 0.0;
-}
-
 string Unidirectional::getName() const {
     return "unidirectional";
-}
-
-string Unidirectional::getFullName() const {
-    return "unidirectional";
-}
-
-Estimator* Unidirectional::copy() const {
-    Unidirectional* estimator = new Unidirectional();
-
-    return estimator;
 }

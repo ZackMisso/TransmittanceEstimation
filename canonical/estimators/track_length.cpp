@@ -1,7 +1,7 @@
 #include "track_length.h"
 #include <tgmath.h>
 
-TrackLength::TrackLength() : PrimaryEstimator() {
+TrackLength::TrackLength() : Estimator() {
     type = EST_TRACKLENGTH;
 }
 
@@ -33,24 +33,6 @@ Float TrackLength::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
     return 0.0;
 }
 
-Float TrackLength::simpleT(Float ext, Float maj, int term, Float a, Float b) const
-{
-    // TODO
-    return 0.0;
-}
-
 string TrackLength::getName() const {
     return "track_length";
-}
-
-string TrackLength::getFullName() const {
-    return "track_length";
-}
-
-Estimator* TrackLength::copy() const {
-    TrackLength* estimator = new TrackLength();
-
-    // TODO
-
-    return estimator;
 }

@@ -69,8 +69,6 @@ add_executable(transm_est
     estimators/expected.cpp
     estimators/next_flight_ratio.h
     estimators/next_flight_ratio.cpp
-    estimators/primaryestimator.h
-    estimators/primaryestimator.cpp
     estimators/pseries_cdf.h
     estimators/pseries_cdf.cpp
     estimators/pseries_cumulative.h
@@ -81,8 +79,6 @@ add_executable(transm_est
     estimators/pseries_ratio.cpp
     estimators/ratio_tracking.h
     estimators/ratio_tracking.cpp
-    estimators/secondaryestimator.h
-    estimators/secondaryestimator.cpp
     estimators/track_length.h
     estimators/track_length.cpp
     estimators/unidirectional.h

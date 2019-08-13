@@ -22,15 +22,11 @@ public:
     virtual Float next1D() = 0;
     virtual Pdd next2D() = 0;
 
-    virtual void loggedNext1D(Float& dimVal, Float& jitVal) = 0;
-
     virtual void nextSample() = 0;
 
     virtual Sampler* copy() = 0;
 
     virtual string getName() const = 0;
-
-    virtual bool correlated() const = 0;
 
     SamplerType getType() const;
     pcg32 getSampleRNG() const;

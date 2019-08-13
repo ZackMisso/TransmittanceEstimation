@@ -27,21 +27,13 @@ public:
 
     void setOpticalDepth(Float c);
 
-    // visual logging
-    void infoDump() const;
     void preProcess();
-
-    void updateVariables(const vector<ExtVarGuiData>& vars);
-    void getVariables(vector<ExtVarGuiData>& vars) const;
 
     Float calculateMaxExtinction(Float a, Float b) const;
     Float calculateMinExtinction(Float a, Float b) const;
 
     Float calculateMinMajorantEfficiency() const;
     Float calculateMaxMajorantEfficiency() const;
-
-    void updateAxisValue(AxisVar var, Float value);
-    vector<AxisVar> getValidAxis() const;
 
     Extinction* copy() const;
     string getName() const;

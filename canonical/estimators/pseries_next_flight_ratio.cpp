@@ -2,7 +2,7 @@
 #include "../util.h"
 #include <tgmath.h>
 
-Pseries_NextFlightRatio::Pseries_NextFlightRatio() : PrimaryEstimator() {
+Pseries_NextFlightRatio::Pseries_NextFlightRatio() : Estimator() {
     type = EST_PSERIES_NFR;
 }
 
@@ -60,22 +60,6 @@ Float Pseries_NextFlightRatio::T(TransmittanceQuaryRecord& rec, Sampler* sampler
     return Tr;
 }
 
-Float Pseries_NextFlightRatio::simpleT(Float ext, Float maj, int term, Float a, Float b) const
-{
-    // TODO
-    return 0.0;
-}
-
 string Pseries_NextFlightRatio::getName() const {
     return "pseries_next_flight_ratio";
-}
-
-string Pseries_NextFlightRatio::getFullName() const {
-    return "pseries_next_flight_ratio";
-}
-
-Estimator* Pseries_NextFlightRatio::copy() const {
-    Pseries_NextFlightRatio* estimator = new Pseries_NextFlightRatio();
-
-    return estimator;
 }

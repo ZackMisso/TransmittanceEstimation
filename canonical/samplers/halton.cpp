@@ -2,14 +2,12 @@
 
 Halton::Halton() : Sampler() {
     type = SAMP_HALTON;
-    // halton.init_random(sampSeed);
     currentDim = 0;
     currentSample = 0;
 }
 
 Halton::Halton(unsigned int seed) : Sampler(seed) {
     type = SAMP_HALTON;
-    // halton.init_random(sampSeed);
     currentDim = 0;
     currentSample = 0;
 }
@@ -48,10 +46,8 @@ Halton::~Halton() {
 
 Float Halton::next1D() {
     if (currentDim > 255) {
-        // cout << "PAST SAMPLE" << endl;
         currentDim++;
         Float samp = sampleRNG.nextFloat();
-        // cout << "Actual Samp: " << samp << endl;
         return samp;
     }
 
@@ -62,21 +58,6 @@ Float Halton::next1D() {
 
 Pdd Halton::next2D() {
     return Pdd(next1D(), next1D());
-}
-
-void Halton::loggedNext1D(Float& dimVal, Float& jitVal) {
-    if (currentDim > 255) {
-        // cout << "PAST SAMPLE" << endl;
-        dimVal = sampleRNG.nextFloat();
-        currentDim++;
-        jitVal = 0.0;
-        return;
-    }
-
-    Float sample = halton.sample(currentDim, currentSample);
-    currentDim++;
-    dimVal = sample;
-    jitVal = 0.0;
 }
 
 void Halton::nextSample() {
@@ -92,10 +73,6 @@ void Halton::reset() {
 
 Sampler* Halton::copy() {
     return new Halton(sampSeed, jitSeed);
-}
-
-bool Halton::correlated() const {
-    return true;
 }
 
 string Halton::getName() const {

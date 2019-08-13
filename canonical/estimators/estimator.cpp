@@ -2,7 +2,6 @@
 #include <tgmath.h>
 
 Estimator::Estimator() {
-    // samplingRate = 0;
     type = EST_NONE;
 }
 
@@ -28,10 +27,6 @@ Float Estimator::pdfExpFF(Float ffd, const TransmittanceQuaryRecord& rec, Float 
 
 Float Estimator::pdfUniFF(Float x, const TransmittanceQuaryRecord& rec) const {
     return 1.0 / (rec.b - rec.a);
-}
-
-void Estimator::setSamplingRate(int param) {
-    samplingRate = param;
 }
 
 EstimatorType Estimator::getType() {

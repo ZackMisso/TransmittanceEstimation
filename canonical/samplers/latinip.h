@@ -17,13 +17,9 @@ public:
 
     virtual void reset();
 
-    virtual void loggedNext1D(Float& dimVal, Float& jitVal);
-
     virtual void nextSample();
 
     virtual Sampler* copy();
-
-    virtual bool correlated() const;
 
     virtual string getName() const;
 

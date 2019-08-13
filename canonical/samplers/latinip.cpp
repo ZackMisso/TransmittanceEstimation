@@ -57,20 +57,6 @@ Pdd LatinHyperCubesInPlace::next2D() {
     return Pdd(next1D(), next1D());
 }
 
-void LatinHyperCubesInPlace::loggedNext1D(Float& dimVal, Float& jitVal) {
-    int32_t samp = sampleRNG.nextUInt();
-    int32_t value = Permutation::permute(currentSample, numSamples, samp);
-
-    Float sample = Float(value) + 0.5;
-    Float jitter = jit * (jitterRNG.nextFloat() - 0.5);
-    sample += jitter;
-    sample /= Float(numSamples);
-    currentDim++;
-
-    dimVal = sample;
-    jitVal = jitter;
-}
-
 void LatinHyperCubesInPlace::nextSample() {
     reseedSampler(sampSeed);
     currentDim = 0;
@@ -90,8 +76,4 @@ Sampler* LatinHyperCubesInPlace::copy() {
 
 string LatinHyperCubesInPlace::getName() const {
     return "latin_in_place";
-}
-
-bool LatinHyperCubesInPlace::correlated() const {
-    return true;
 }

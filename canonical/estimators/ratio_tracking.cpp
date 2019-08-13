@@ -1,7 +1,7 @@
 #include "ratio_tracking.h"
 #include <tgmath.h>
 
-RatioTracking::RatioTracking() : PrimaryEstimator() {
+RatioTracking::RatioTracking() : Estimator() {
     type = EST_RATIO;
 }
 
@@ -48,26 +48,6 @@ Float RatioTracking::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
     return T;
 }
 
-Float RatioTracking::simpleT(Float ext, Float maj, int term, Float a, Float b) const
-{
-    Float ratio = 1.0;
-
-    for (int i = 1; i <= term; ++i)
-        ratio *= (maj - ext) / maj;
-
-    return ratio;
-}
-
 string RatioTracking::getName() const {
     return "ratio";
-}
-
-string RatioTracking::getFullName() const {
-    return "ratio";
-}
-
-Estimator* RatioTracking::copy() const {
-    RatioTracking* estimator = new RatioTracking();
-
-    return estimator;
 }

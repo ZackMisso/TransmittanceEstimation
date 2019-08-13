@@ -22,15 +22,6 @@ public:
     virtual Float calculateMinEfficiency() const = 0;
     virtual Float calculateMaxEfficiency() const = 0;
 
-    virtual void updateVariables(const vector<ExtVarGuiData>& vars, FuncType type) = 0;
-    virtual void getVariables(vector<ExtVarGuiData>& vars, FuncType type) const = 0;
-
-    virtual void updateAxisValue(AxisVar var, Float val, FuncType type) = 0;
-    virtual vector<AxisVar> getValidAxis(FuncType type) const = 0;
-
-    // visual logging
-    virtual void infoDump() const = 0;
-
     virtual void solveForIntegral(Float a, Float b, Float area)
     {
         preProcess(a, b);

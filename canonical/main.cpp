@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fstream>
+#include <vector>
 
 Extinction* create_cos_extinction()
 {
@@ -90,91 +91,187 @@ int main(int argc, char* argv[])
 {
     std::cout << "hello world" << std::endl;
 
-    Extinction* ext = create_cos_extinction();
-    Estimator* est = new RatioTracking();
-    Sampler* samp = new Independent();
+    std::vector<Extinction*> extinctions = std::vector<Extinction*>();
+    std::vector<Estimator*> estimators = std::vector<Estimator*>();
+    Sampler* sampler = new Independent();
 
-    std::string prefix = "test/";
+    std::string prefix = ".";
     long base_seed = 0x34da32d;
-    bool equal_cost = true;
+    bool equal_cost = false;
     uint32_t max_cost = 16384;
-    uint32_t samples = 1;
-    uint32_t trials = 1;
+    uint32_t samples = 16;
+    uint32_t trials = 16;
     uint32_t resolution = 512;
 
-    CanonicalTest(prefix,
-                  est,
-                  ext,
-                  samp,
-                  base_seed,
-                  equal_cost,
-                  max_cost,
-                  samples,
-                  trials,
-                  resolution);
+    for (int i = 1; i < argc; ++i)
+    {
+        // sampler setting
+        if (strcmp(argv[i], "independent") == 0)
+        {
+            delete sampler;
+            sampler = new Independent();
+        }
+        else if (strcmp(argv[i], "halton") == 0)
+        {
+            delete sampler;
+            sampler = new Halton();
+        }
+        else if (strcmp(argv[i], "hammersley") == 0)
+        {
+            delete sampler;
+            sampler = new Hammersley();
+        }
+        else if (strcmp(argv[i], "latinip") == 0)
+        {
+            delete sampler;
+            sampler = new LatinHyperCubesInPlace();
+        }
 
-    delete ext;
-    delete est;
-    delete samp;
+        // extinction setting
+        else if (strcmp(argv[i], "const") == 0)
+        {
+            extinctions.push_back(create_const_extinction());
+        }
+        else if (strcmp(argv[i], "cos") == 0)
+        {
+            extinctions.push_back(create_cos_extinction());
+        }
+        else if (strcmp(argv[i], "gauss") == 0)
+        {
+            extinctions.push_back(create_gauss_extinction());
+        }
+        else if (strcmp(argv[i], "hole") == 0)
+        {
+            extinctions.push_back(create_hole_extinction());
+        }
+        else if (strcmp(argv[i], "lin_inc") == 0)
+        {
+            extinctions.push_back(create_lin_inc_extinction());
+        }
+        else if (strcmp(argv[i], "lin_dec") == 0)
+        {
+            extinctions.push_back(create_lin_dec_extinction());
+        }
 
-    //
-    // std::string est_string = std::string(argv[1]);
-    //
-    // if (est_string == "gen")
-    // {
-    //     generate_all_tests();
-    //     return 0;
-    // }
-    //
-    // if (est_string == "combine")
-    // {
-    //     combine_current_tests(atoi(argv[1]), 32);
-    // }
-    //
-    // std::cout << est_string << std::endl;
-    // std::string index = std::string(argv[2]);
-    // std::cout << "index: " << argv[2] << std::endl;
-    //
-    // //return 0;
-    //
-    // Estimator* estimator = nullptr;
-    // uint32_t samples = atoi(argv[3]);
-    // uint32_t trials = 32;
-    //
-    // if (est_string == "ratio")
-    // {
-    //     estimator = new RatioTracking();
-    // }
-    // else if (est_string == "cdf")
-    // {
-    //     estimator = new Pseries_CDF();
-    // }
-    // else if (est_string == "pratio")
-    // {
-    //     estimator = new Pseries_Ratio();
-    // }
-    // else return 0;
-    //
-    // pcg32 rng(0x3cf5a, 1);
-    //
-    // for (int i = 0; i < atoi(index.c_str()); ++i) rng.nextUInt();
-    //
-    // // under 3 hour run times:
-    // // 128 x 8 for bidirectional
-    // // 128 x 32 for ratio
-    // // 128 x 32 for pseries-cdf
-    // // x for pseries-cumulative
-    // // x for unidirectional
-    // // x for track-length
-    // // x for next-flight
-    //
-    // JansStratTest("data/"+index,
-    //               estimator,
-    //               ext,
-    //               rng.nextUInt(),
-    //               samples,
-    //               trials,
-    //               512);
+        // estimator setting
+        else if (strcmp(argv[i], "bidirectional") == 0)
+        {
+            estimators.push_back(new Bidirectional());
+        }
+        else if (strcmp(argv[i], "expected") == 0)
+        {
+            estimators.push_back(new Expected());
+        }
+        else if (strcmp(argv[i], "next_flight_ratio") == 0)
+        {
+            estimators.push_back(new NextFlight_RatioTracking());
+        }
+        else if (strcmp(argv[i], "pseries_cmf") == 0)
+        {
+            estimators.push_back(new Pseries_CDF());
+        }
+        else if (strcmp(argv[i], "pseries_cumulative") == 0)
+        {
+            estimators.push_back(new Pseries_Cumulative());
+        }
+        else if (strcmp(argv[i], "pseries_next_flight_ratio") == 0)
+        {
+            estimators.push_back(new Pseries_NextFlightRatio());
+        }
+        else if (strcmp(argv[i], "pseries_ratio") == 0)
+        {
+            estimators.push_back(new Pseries_Ratio());
+        }
+        else if (strcmp(argv[i], "ratio") == 0)
+        {
+            estimators.push_back(new RatioTracking());
+        }
+        else if (strcmp(argv[i], "track_length") == 0)
+        {
+            estimators.push_back(new TrackLength());
+        }
+        else if (strcmp(argv[i], "unidirectional") == 0)
+        {
+            estimators.push_back(new Unidirectional());
+        }
+
+        // other option setting
+        else if (strcmp(argv[i], "prefix") == 0)
+        {
+            prefix = std::string(argv[++i]);
+        }
+        else if (strcmp(argv[i], "base_seed") == 0)
+        {
+            base_seed = (long)stoi(argv[++i]);
+        }
+        else if (strcmp(argv[i], "equal_cost") == 0)
+        {
+            equal_cost = true;
+        }
+        else if (strcmp(argv[i], "samples") == 0)
+        {
+            samples = stoi(argv[++i]);
+        }
+        else if (strcmp(argv[i], "trials") == 0)
+        {
+            trials = stoi(argv[++i]);
+        }
+        else if (strcmp(argv[i], "resolution") == 0)
+        {
+            resolution = stoi(argv[++i]);
+        }
+
+        // specifying all
+        else if (strcmp(argv[i], "all") == 0)
+        {
+            extinctions.push_back(create_const_extinction());
+            extinctions.push_back(create_cos_extinction());
+            extinctions.push_back(create_gauss_extinction());
+            extinctions.push_back(create_hole_extinction());
+            extinctions.push_back(create_lin_inc_extinction());
+            extinctions.push_back(create_lin_dec_extinction());
+
+            estimators.push_back(new Bidirectional());
+            estimators.push_back(new Expected());
+            estimators.push_back(new NextFlight_RatioTracking());
+            estimators.push_back(new Pseries_CDF());
+            estimators.push_back(new Pseries_Cumulative());
+            estimators.push_back(new Pseries_NextFlightRatio());
+            estimators.push_back(new Pseries_Ratio());
+            estimators.push_back(new RatioTracking());
+            estimators.push_back(new TrackLength());
+            estimators.push_back(new Unidirectional());
+        }
+    }
+
+    if (estimators.size() == 0) std::cout << "Warning: no esitmator specified" << std::endl;
+    if (extinctions.size() == 0) std::cout << "Warning: no extinction specified" << std::endl;
+
+    // run canonical tests for each combination of specified extinctions
+    // and estimators
+    for (int i = 0; i < estimators.size(); ++i)
+    {
+        for (int j = 0; j < extinctions.size(); ++j)
+        {
+            Estimator* est = estimators[i];
+            Extinction* ext = extinctions[j];
+
+            CanonicalTest(prefix,
+                          est,
+                          ext,
+                          sampler,
+                          base_seed,
+                          equal_cost,
+                          max_cost,
+                          samples,
+                          trials,
+                          resolution);
+        }
+    }
+
+    for (int i = 0; i < estimators.size(); ++i) delete estimators[i];
+    for (int i = 0; i < extinctions.size(); ++i) delete extinctions[i];
+    delete sampler;
 
     return 0;
 }

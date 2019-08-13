@@ -11,13 +11,10 @@ TightConstFunc::TightConstFunc(Func* func, bool isMajorant)
 Float TightConstFunc::evalFunction(Float x, Float a, Float b) const {
     if (isMajorant)
     {
-        // cout << "whoa" << endl;
         return func->getMax();
     }
     else
     {
-        // cout << "whoa2" << endl;
-        // if (!func) cout << "yikes" << endl;
         return func->getMin();
     }
 }
@@ -53,24 +50,6 @@ void TightConstFunc::solveForIntegral(Float a, Float b, Float area) {
     Func::solveForIntegral(a, b, area);
 }
 
-void TightConstFunc::updateVariables(const vector<ExtVarGuiData>& vars, FuncType type) {
-    // no variables to update
-}
-
-void TightConstFunc::getVariables(vector<ExtVarGuiData>& vars, FuncType type) const {
-    // no variables to update
-}
-
-void TightConstFunc::updateAxisValue(AxisVar var, Float val, FuncType type) {
-    // no variables to update
-}
-
-vector<AxisVar> TightConstFunc::getValidAxis(FuncType type) const {
-    vector<AxisVar> vars = vector<AxisVar>();
-
-    return vars;
-}
-
 Func* TightConstFunc::copy() const {
     TightConstFunc* newFunc = new TightConstFunc();
 
@@ -92,11 +71,6 @@ string TightConstFunc::getName(FuncType type) const {
         return "min_tight";
     }
     return "maj_tight";
-}
-
-void TightConstFunc::infoDump() const {
-    cout << "Const Tight" << endl;
-    // cout << "C: " << func->calculateMaxValue(0.0, 1.0);
 }
 
 bool TightConstFunc::needsDependent() const {

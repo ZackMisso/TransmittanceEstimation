@@ -20,11 +20,7 @@ Float NullRatioFunc::evalFunction(Float x, Float a, Float b) const {
 
     Float g = ((realArea / ratio) - tightArea) / (b - a);
 
-    // if (g < 0.0) cout << "WHAT THE HEELLL" << endl;
-
     return g + majVal;
-
-    // return ratio;
 }
 
 Float NullRatioFunc::calculateIntegral(Float a, Float b) const {
@@ -58,68 +54,6 @@ void NullRatioFunc::solveForIntegral(Float a, Float b, Float area) {
     Func::solveForIntegral(a, b, area);
 }
 
-void NullRatioFunc::updateVariables(const vector<ExtVarGuiData>& vars, FuncType type) {
-    if (type == FUNC_MAJORANT) {
-        for (int i = 0; i < vars.size(); ++i) {
-            if (vars[i].name == "maj_ratio") {
-                ratio = vars[i].floatval;
-            }
-        }
-    }
-    else if (type == FUNC_MINORANT) {
-        for (int i = 0; i < vars.size(); ++i) {
-            if (vars[i].name == "min_ratio") {
-                ratio = vars[i].floatval;
-            }
-        }
-    }
-}
-
-void NullRatioFunc::getVariables(vector<ExtVarGuiData>& vars, FuncType type) const {
-    if (type == FUNC_MAJORANT) {
-        ExtVarGuiData ratioData;
-        ratioData.name = "maj_ratio";
-        ratioData.floatval = float(ratio);
-        ratioData.varType = EXT_VAR_FLOAT;
-        vars.push_back(ratioData);
-    }
-    else if (type == FUNC_MINORANT) {
-        ExtVarGuiData ratioData;
-        ratioData.name = "min_ratio";
-        ratioData.floatval = float(ratio);
-        ratioData.varType = EXT_VAR_FLOAT;
-        vars.push_back(ratioData);
-    }
-}
-
-void NullRatioFunc::updateAxisValue(AxisVar var, Float val, FuncType type) {
-    if (type == FUNC_MAJORANT) {
-        if (var == MAJ_NULL_RATIO) {
-            // ratio = -Util::LOG(val) * 30 / -Util::LOG(0.0005);
-            ratio = val;
-        }
-    }
-    else if (type == FUNC_MINORANT) {
-        if (var == MIN_NULL_RATIO) {
-            // ratio = -Util::LOG(val) * 30 / -Util::LOG(0.0005);
-            ratio = val;
-        }
-    }
-}
-
-vector<AxisVar> NullRatioFunc::getValidAxis(FuncType type) const {
-    vector<AxisVar> vars = vector<AxisVar>();
-
-    if (type == FUNC_MAJORANT) {
-        vars.push_back(MAJ_NULL_RATIO);
-    }
-    else if (type == FUNC_MINORANT) {
-        vars.push_back(MIN_NULL_RATIO);
-    }
-
-    return vars;
-}
-
 Func* NullRatioFunc::copy() const {
     NullRatioFunc* newFunc = new NullRatioFunc();
 
@@ -144,42 +78,6 @@ string NullRatioFunc::getName(FuncType type) const {
     }
     return "maj_null_ratio";
 }
-
-void NullRatioFunc::infoDump() const {
-    // cout << "Const Tight" << endl;
-    // cout << "C: " << func->calculateMaxValue(0.0, 1.0);
-
-    cout << "Info Dump Not Implemented" << endl;
-
-    // TODO
-}
-
-// void NullRatioFunc::preProcess(Float a, Float b) {
-//     cout << "PREPROCESSING" << endl;
-//     Float majVal = 0.0;
-//     Float minVal = 1000000.0;
-//     Float area = 0.0;
-//
-//     for (int i = 0; i <= 10000; ++i) {
-//         Float y = func->evalFunction((b - a) * (Float(i) / Float(10000)) + a, a, b);
-//
-//         majVal = max(majVal, y);
-//         minVal = min(minVal, y);
-//
-//         if (i != 0) {
-//             area += func->evalFunction((b - a) * (Float(i) / Float(10000)) + a, a, b) * (1.0 / 10000.0);
-//         }
-//     }
-//
-//     Float realArea = area;
-//     Float tightArea = majVal * (b - a);
-//
-//     Float g = ((realArea / ratio) - tightArea) / (b - a);
-//
-//     preProcessedG = g;
-//     preProcessedMax = majVal;
-//     preProcessed = true;
-// }
 
 bool NullRatioFunc::needsDependent() const {
     return true;

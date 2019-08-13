@@ -24,11 +24,6 @@ Pdd Independent::next2D() {
     return Pdd(sampleRNG.nextFloat(), sampleRNG.nextFloat());
 }
 
-void Independent::loggedNext1D(Float& dimVal, Float& jitVal) {
-    dimVal = sampleRNG.nextFloat();
-    jitVal = 0.0;
-}
-
 uint32_t Independent::next1D_U() {
     return sampleRNG.nextUInt();
 }
@@ -48,8 +43,4 @@ Sampler* Independent::copy() {
 
 string Independent::getName() const {
     return "independent";
-}
-
-bool Independent::correlated() const {
-    return true;
 }

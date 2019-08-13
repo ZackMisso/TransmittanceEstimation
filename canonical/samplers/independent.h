@@ -15,15 +15,11 @@ public:
 
     uint32_t next1D_U();
 
-    virtual void loggedNext1D(Float& dimVal, Float& jitVal);
-
     virtual void nextSample();
 
     virtual void reset();
 
     virtual Sampler* copy();
-
-    virtual bool correlated() const;
 
     virtual string getName() const;
 

@@ -1,7 +1,7 @@
 #include "pseries_ratio.h"
 #include <tgmath.h>
 
-Pseries_Ratio::Pseries_Ratio() : PrimaryEstimator() {
+Pseries_Ratio::Pseries_Ratio() : Estimator() {
     type = EST_PSERIES_RAT;
 }
 
@@ -38,22 +38,6 @@ Float Pseries_Ratio::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
     return Tr;
 }
 
-Float Pseries_Ratio::simpleT(Float ext, Float maj, int term, Float a, Float b) const
-{
-    // TODO
-    return 0.0;
-}
-
 string Pseries_Ratio::getName() const {
     return "pseries_ratio";
-}
-
-string Pseries_Ratio::getFullName() const {
-    return "pseries_ratio";
-}
-
-Estimator* Pseries_Ratio::copy() const {
-    Pseries_Ratio* estimator = new Pseries_Ratio();
-
-    return estimator;
 }

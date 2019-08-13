@@ -1,6 +1,6 @@
 #include "next_flight_ratio.h"
 
-NextFlight_RatioTracking::NextFlight_RatioTracking() : PrimaryEstimator() {
+NextFlight_RatioTracking::NextFlight_RatioTracking() : Estimator() {
     type = EST_NFR;
 }
 
@@ -35,34 +35,7 @@ Float NextFlight_RatioTracking::T(TransmittanceQuaryRecord& rec, Sampler* sample
     return Tr;
 }
 
-Float NextFlight_RatioTracking::simpleT(Float ext, Float maj, int term, Float a, Float b) const
-{
-    Float tr = exp(-maj * (b - a));
-
-    Float ratio = 1.0;
-    for (int i = 1; i <= term; ++i)
-    {
-        Float x = (b - a) * Float(i) / Float(term+1) + a;
-        ratio *= (maj - ext) / maj;
-        tr += ratio * exp(-maj * (b - x));
-    }
-
-    return tr;
-}
-
 
 string NextFlight_RatioTracking::getName() const {
     return "next_flight_ratio";
-}
-
-string NextFlight_RatioTracking::getFullName() const {
-    return "next_flight_ratio";
-}
-
-Estimator* NextFlight_RatioTracking::copy() const {
-    NextFlight_RatioTracking* estimator = new NextFlight_RatioTracking();
-
-    // TODO
-
-    return estimator;
 }

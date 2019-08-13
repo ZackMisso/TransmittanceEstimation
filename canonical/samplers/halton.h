@@ -18,15 +18,11 @@ public:
     virtual Float next1D();
     virtual Pdd next2D();
 
-    virtual void loggedNext1D(Float& dimVal, Float& jitVal);
-
     virtual void nextSample();
 
     virtual void reset();
 
     virtual Sampler* copy();
-
-    virtual bool correlated() const;
 
     virtual string getName() const;
 

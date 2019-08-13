@@ -86,114 +86,12 @@ void Extinction::setOpticalDepth(Float c) {
     // TODO: majorant / minorants ???
 }
 
-void Extinction::updateVariables(const vector<ExtVarGuiData>& vars) {
-    extinctionFunction->updateVariables(vars, FUNC_EXTINCTION);
-    majorantFunction->updateVariables(vars, FUNC_MAJORANT);
-    minorantFunction->updateVariables(vars, FUNC_MINORANT);
-}
-
-void Extinction::getVariables(vector<ExtVarGuiData>& vars) const {
-    extinctionFunction->getVariables(vars, FUNC_EXTINCTION);
-    majorantFunction->getVariables(vars, FUNC_MAJORANT);
-    minorantFunction->getVariables(vars, FUNC_MINORANT);
-}
-
 Float Extinction::calculateMaxExtinction(Float a, Float b) const {
     return extinctionFunction->getMax();
 }
 
 Float Extinction::calculateMinExtinction(Float a, Float b) const {
     return extinctionFunction->getMin();
-}
-
-void Extinction::updateAxisValue(AxisVar var, Float value) {
-    extinctionFunction->updateAxisValue(var, value, FUNC_EXTINCTION);
-    majorantFunction->updateAxisValue(var, value, FUNC_MAJORANT);
-    minorantFunction->updateAxisValue(var, value, FUNC_MINORANT);
-}
-
-vector<AxisVar> Extinction::getValidAxis() const {
-    vector<AxisVar> vars = vector<AxisVar>();
-
-    vector<AxisVar> extVars = extinctionFunction->getValidAxis(FUNC_EXTINCTION);
-    vector<AxisVar> majVars = majorantFunction->getValidAxis(FUNC_MAJORANT);
-    vector<AxisVar> minVars = minorantFunction->getValidAxis(FUNC_MINORANT);
-
-    for (int i = 0; i < extVars.size(); ++i) {
-        vars.push_back(extVars[i]);
-    }
-
-    for (int i = 0; i < majVars.size(); ++i) {
-        vars.push_back(majVars[i]);
-    }
-
-    for (int i = 0; i < minVars.size(); ++i) {
-        vars.push_back(minVars[i]);
-    }
-
-    return vars;
-}
-
-// this method is used for visual debugging in the gui
-void Extinction::infoDump() const {
-    cout << "Producing Extinction Info Dump" << endl;
-
-    cout << "Extinction: " << extinctionFunction->getName(FUNC_EXTINCTION) << endl;
-    cout << "Majorant: " << majorantFunction->getName(FUNC_MAJORANT) << endl;
-    cout << "Minorant: " << minorantFunction->getName(FUNC_MINORANT) << endl;
-
-    cout << endl;
-    cout << "Extinction Data:" << endl;
-    extinctionFunction->infoDump();
-
-    cout << endl;
-    cout << "Majorant Data:" << endl;
-    majorantFunction->infoDump();
-
-    cout << endl;
-    cout << "Minorant Data:" << endl;
-    minorantFunction->infoDump();
-
-    cout << "A: " << a << " B: " << b << endl;
-
-    Float maxVal = 0.0;
-    Float area = 0.0;
-
-    for (int i = 0; i <= 10000; ++i) {
-        Float x = (b - a) * Float(i) + a;
-        maxVal = max(maxVal, extinctionFunction->evalFunction(x, a, b));
-
-        if (i != 0) {
-            Float step = (b - a) / 10000.0;
-            area += extinctionFunction->evalFunction(x, a, b) * step;
-        }
-    }
-
-    cout << "Real Ext Function Max Value: " << maxVal << endl;
-    cout << "Real Ext Function Area: " << area << endl;
-
-    // cout << "Maj Function Area: " << majorantFunction->evalIntegral(a, b) << endl;
-    cout << "Tight Bound Area: " << maxVal * (b - a) << endl;
-
-    // Float majmaj = majorantFunction->evalIntegral(a, b);
-    Float majmaj2 = area / (maxVal * (b - a));
-
-    // cout << "Null Area: " << majmaj - area << endl;
-
-    // cout << ""
-
-    // cout << "Real To Null: " << area / (majmaj) << endl;
-
-    cout << "Minimum Real To Null Ratio: " << majmaj2 << endl;
-
-    // cout << "area "
-
-
-
-
-    cout << "Done" << endl;
-
-    // TODO
 }
 
 void Extinction::preProcess() {
@@ -262,13 +160,5 @@ void Extinction::setMinorantFunction(Func* param) {
 Float Extinction::getA() const { return a; }
 Float Extinction::getB() const { return b; }
 
-void Extinction::setA(Float param)
-{
-    a = param;
-    // preProcess();
-}
-void Extinction::setB(Float param)
-{
-    b = param;
-    // preProcess();
-}
+void Extinction::setA(Float param) { a = param; }
+void Extinction::setB(Float param) { b = param; }

@@ -13,12 +13,6 @@ public:
 
     virtual void solveForIntegral(Float a, Float b, Float area);
 
-    virtual void updateVariables(const vector<ExtVarGuiData>& vars, FuncType type);
-    virtual void getVariables(vector<ExtVarGuiData>& vars, FuncType type) const;
-
-    virtual void updateAxisValue(AxisVar var, Float val, FuncType type);
-    virtual vector<AxisVar> getValidAxis(FuncType type) const;
-
     virtual Func* copy() const;
 
     virtual string getName(FuncType type) const;
@@ -29,8 +23,6 @@ public:
     virtual void declareMinorant();
 
     virtual ExtinctionType getType() const;
-
-    virtual void infoDump() const;
 
     // setter methods
     void setIsMajorant(bool param);

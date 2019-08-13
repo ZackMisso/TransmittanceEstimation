@@ -50,7 +50,6 @@ Float Hammersley::next1D() {
         sample = Util::randomDigitScramble(float(currentSample * inv), scramble);
     } else {
         if (currentDim > 255) {
-            // cout << "PAST SAMPLE" << endl;
             return sampleRNG.nextFloat();
         }
 
@@ -63,26 +62,6 @@ Float Hammersley::next1D() {
 
 Pdd Hammersley::next2D() {
     return Pdd(next1D(), next1D());
-}
-
-void Hammersley::loggedNext1D(Float& dimVal, Float& jitVal) {
-    Float sample = 0.0;
-
-    if (currentDim == 0) {
-        sample = Util::randomDigitScramble(float(currentSample * inv), scramble);
-    } else {
-        if (currentDim > 255) {
-            // cout << "PAST SAMPLE" << endl;
-            jitVal = 0.0;
-            dimVal = sampleRNG.nextFloat();
-        }
-
-        sample = halton.sample(currentDim, currentSample);
-    }
-
-    currentDim++;
-    dimVal = sample;
-    jitVal = 0.0;
 }
 
 void Hammersley::nextSample() {
@@ -102,10 +81,6 @@ Sampler* Hammersley::copy() {
 
 string Hammersley::getName() const {
     return "hammersley";
-}
-
-bool Hammersley::correlated() const {
-    return true;
 }
 
 void Hammersley::setNumSamples(uint32_t param) {
