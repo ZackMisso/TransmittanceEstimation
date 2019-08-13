@@ -23,130 +23,68 @@ Extinction* create_cos_extinction()
 
     return cosExt;
 }
-//
-// void generate_all_tests()
-// {
-//     for (int i = 0; i < 1024 * 1024 / 32; ++i)
-//     // for (int i = 0; i < 3; ++i)
-//     {
-//         // make the directory containing the images
-//         string command = "mkdir data/" + std::to_string(i);
-//         system(command.c_str());
-//
-//         std::ofstream file("jobs/transm_"+std::to_string(i)+".sh");
-//
-//         file << "#!/bin/bash\n";
-//         file << "# The name of the job, can be anything, simply used when displaying the list of running jobs\n";
-//         file << "#$ -N transm_"+std::to_string(i)+"\n";
-//         file << "# Combining output/error messages into one file\n";
-//         file << "#$ -j y\n";
-//         file << "# Set memory request:\n";
-//         file << "#$ -l vf=1G\n";
-//         file << "# Set walltime request:\n";
-//         file << "#$ -l h_rt=02:59:00\n";
-//         file << "# One needs to tell the queue system to use the current directory as the working directory\n";
-//         file << "# Or else the script may fail as it will execute in your top level home directory /home/username\n";
-//         file << "#$ -cwd\n";
-//         file << "# then you tell it retain all environment variables (as the default is to scrub your environment)\n";
-//         file << "#$ -V\n";
-//         file << "# Now comes the command to be executed\n";
-//         file << "./transm_cluster ratio "+ to_string(i) + " 128\n";
-//         file << "exit 0\n";
-//
-//         file.close();
-//
-//         command = "qsub jobs/transm_"+std::to_string(i)+".sh";
-//         system(command.c_str());
-//     }
-// }
-//
-// void combine_current_tests(int start_index, int trials)
-// {
-//     FloatImage reference_rand;
-//     FloatImage reference_strat;
-//     FloatImage reference_mean_rand;
-//     FloatImage reference_mean_strat;
-//
-//     if (start_index == 0)
-//     {
-//         reference_rand = FloatImage(512, 512, 3);
-//         reference_strat = FloatImage(512, 512, 3);
-//         reference_mean_rand = FloatImage(512, 512, 3);
-//         reference_mean_strat = FloatImage(512, 512, 3);
-//
-//         for (int i = 0; i < reference_rand.size(); ++i)
-//         {
-//             reference_rand(i) = 0.0;
-//             reference_strat(i) = 0.0;
-//             reference_mean_rand(i) = 0.0;
-//             reference_mean_strat(i) = 0.0;
-//         }
-//     }
-//     else
-//     {
-//         reference_rand = FloatImage("reference_rand.hdr");
-//         reference_strat = FloatImage("reference_strat.hdr");
-//         reference_mean_rand = FloatImage("reference_mean_rand.hdr");
-//         reference_mean_strat = FloatImage("reference_mean_strat.hdr");
-//     }
-//
-//     std::string estimator_rand = "ratio_var_rand.hdr";
-//     std::string estimator_strat = "ratio_var_strat.hdr";
-//     std::string estimator_mean_rand = "ratio_mean_rand.hdr";
-//     std::string estimator_mean_strat = "ratio_mean_strat.hdr";
-//
-//     FloatImage total_rand = FloatImage(512, 512, 3);
-//     FloatImage total_strat = FloatImage(512, 512, 3);
-//     FloatImage total_mean_rand = FloatImage(512, 512, 3);
-//     FloatImage total_mean_strat = FloatImage(512, 512, 3);
-//
-//     for (int i = 0; i < total_rand.size(); ++i)
-//     {
-//         total_rand(i) = 0.0;
-//         total_strat(i) = 0.0;
-//         total_mean_rand(i) = 0.0;
-//         total_mean_strat(i) = 0.0;
-//     }
-//
-//     int end_index = (start_index + 5999 < 1024*1024/trials) ?
-//                         start_index + 5999 :
-//                         1024*1024/trials;
-//
-//     for (int i = start_index; i < end_index; ++i)
-//     {
-//         std::cout << "i: " << i << std::endl;
-//
-//         FloatImage tmp_rand("data/"+to_string(i)+"/" + estimator_rand);
-//         FloatImage tmp_strat("data/"+to_string(i)+"/" + estimator_strat);
-//         FloatImage tmp_mean_rand("data/"+to_string(i)+"/"+estimator_mean_rand);
-//         FloatImage tmp_mean_strat("data/"+to_string(i)+"/"+estimator_mean_strat);
-//
-//         tmp_rand = tmp_rand * trials;
-//         tmp_strat = tmp_strat * trials;
-//         tmp_mean_rand = tmp_mean_rand * trials;
-//         tmp_mean_strat = tmp_mean_strat * trials;
-//
-//         total_rand = total_rand + tmp_rand;
-//         total_strat = total_strat + tmp_strat;
-//         total_mean_rand = total_mean_rand + tmp_mean_rand;
-//         total_mean_strat = total_mean_strat + tmp_mean_strat;
-//     }
-//
-//     reference_rand = reference_rand * trials * start_index + total_rand;
-//     reference_strat = reference_strat * trials * start_index + total_strat;
-//     reference_mean_rand = reference_mean_rand * trials * start_index + total_mean_rand;
-//     reference_mean_strat = reference_mean_strat * trials * start_index + total_mean_strat;
-//
-//     reference_rand = reference_rand / (trials * end_index);
-//     reference_strat = reference_strat / (trials * end_index);
-//     reference_mean_rand = reference_mean_rand / (trials * end_index);
-//     reference_mean_strat = reference_mean_strat / (trials * end_index);
-//
-//     reference_rand.write("reference_rand.hdr");
-//     reference_strat.write("reference_strat.hdr");
-//     reference_mean_rand.write("reference_mean_rand.hdr");
-//     reference_mean_strat.write("reference_mean_strat.hdr");
-// }
+
+Extinction* create_const_extinction()
+{
+    ConstFunc* constFunc = new ConstFunc();
+    NullRatioFunc* majFuncConst = new NullRatioFunc();
+    Extinction* constExt = new Extinction();
+    constExt->setExtinctionFunction(constFunc);
+    constExt->setMajorantFunction(majFuncConst);
+    constExt->setMinorantFunction(new TightConstFunc(constFunc, false));
+    return constExt;
+}
+
+Extinction* create_gauss_extinction()
+{
+    GaussFunc* gaussFunc = new GaussFunc();
+    NullRatioFunc* majFuncGauss = new NullRatioFunc();
+    Extinction* gaussExt = new Extinction();
+    gaussFunc->setM(0.32);
+    gaussFunc->setSig(0.05);
+    gaussFunc->setH(0.8);
+    gaussExt->setExtinctionFunction(gaussFunc);
+    gaussExt->setMajorantFunction(majFuncGauss);
+    gaussExt->setMinorantFunction(new TightConstFunc(gaussFunc, false));
+    return gaussExt;
+}
+
+Extinction* create_hole_extinction()
+{
+    HoleFunc* holeFunc = new HoleFunc();
+    NullRatioFunc* majFuncHole = new NullRatioFunc();
+    Extinction* holeExt = new Extinction();
+    holeFunc->setM(0.32);
+    holeFunc->setSig(0.05);
+    holeFunc->setH(0.8);
+    holeFunc->setC(1.0);
+    holeExt->setExtinctionFunction(holeFunc);
+    holeExt->setMajorantFunction(majFuncHole);
+    holeExt->setMinorantFunction(new TightConstFunc(holeFunc, false));
+    return holeExt;
+}
+
+Extinction* create_lin_dec_extinction()
+{
+    LinDecFunc* linDecFunc = new LinDecFunc();
+    NullRatioFunc* majFuncLinDec = new NullRatioFunc();
+    Extinction* linDecExt = new Extinction();
+    linDecExt->setExtinctionFunction(linDecFunc);
+    linDecExt->setMajorantFunction(majFuncLinDec);
+    linDecExt->setMinorantFunction(new TightConstFunc(linDecFunc, false));
+    return linDecExt;
+}
+
+Extinction* create_lin_inc_extinction()
+{
+    LinIncFunc* linIncFunc = new LinIncFunc();
+    NullRatioFunc* majFuncLinInc = new NullRatioFunc();
+    Extinction* linIncExt = new Extinction();
+    linIncExt->setExtinctionFunction(linIncFunc);
+    linIncExt->setMajorantFunction(majFuncLinInc);
+    linIncExt->setMinorantFunction(new TightConstFunc(linIncFunc, false));
+    return linIncExt;
+}
 
 int main(int argc, char* argv[])
 {

@@ -36,7 +36,7 @@ CanonicalTest::CanonicalTest(std::string prefix,
     {
         // if (i % 100 == 0)
         // {
-            cout << extinction->getName() << " " << estimator->getName() << " i: " << i << endl;
+        cout << extinction->getName() << " " << estimator->getName() << " i: " << i << endl;
         // }
 
         for (int j = 0; j < resolution; ++j)
