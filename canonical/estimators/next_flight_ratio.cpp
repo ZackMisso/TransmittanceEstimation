@@ -1,18 +1,13 @@
 #include "next_flight_ratio.h"
 
-NextFlight_RatioTracking::NextFlight_RatioTracking() : Estimator() {
-    type = EST_NFR;
-}
+NextFlight_RatioTracking::NextFlight_RatioTracking() : Estimator() { }
 
 Float NextFlight_RatioTracking::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
-    // Float k = rec.maj;
     Float x = rec.a;
 
     vector<Float> samps = vector<Float>();
 
     Float k = rec.extFunc->calculateMajorant((rec.b + rec.a) / 2.0);
-
-    // Float Tr = exp(-k * (rec.b - rec.a));
 
     Float Tr = exp(-k * (rec.b - rec.a));
 

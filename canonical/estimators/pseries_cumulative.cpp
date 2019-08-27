@@ -1,9 +1,7 @@
 #include "pseries_cumulative.h"
 #include "../util.h"
 
-Pseries_Cumulative::Pseries_Cumulative() : Estimator() {
-    type = EST_PSERIES_CUMULATIVE;
-}
+Pseries_Cumulative::Pseries_Cumulative() : Estimator() { }
 
 Float Pseries_Cumulative::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
     Float t = 0.0;
@@ -42,7 +40,6 @@ Float Pseries_Cumulative::T(TransmittanceQuaryRecord& rec, Sampler* sampler) con
 
     rec.transmittance = t * exp(-majorant * (rec.b - rec.a));
 
-    // return t * exp(-rec.extFunc->calculateMajorantIntegral(rec.a, rec.b));
     return t * exp(-majorant * (rec.b - rec.a));
 }
 

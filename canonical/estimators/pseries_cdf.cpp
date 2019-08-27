@@ -1,9 +1,7 @@
 #include "pseries_cdf.h"
 #include <tgmath.h>
 
-Pseries_CDF::Pseries_CDF() : Estimator() {
-    type = EST_PSERIES_CDF;
-}
+Pseries_CDF::Pseries_CDF() : Estimator() { }
 
 Float Pseries_CDF::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
     Float t = 0.0;
@@ -29,8 +27,6 @@ Float Pseries_CDF::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
         Float extdiff = majorant - rec.extFunc->calculateExtinction(x, rec.extCalls);
         Float wi = (1.0 / i) * (extdiff) / (pdfUniFF(x, rec));
         runningCDF += lastPDF;
-        // std::cout << "running CDF: " << runningCDF << std::endl;
-        // std::cout << "Tau: " << tau << std::endl;
         lastPDF *= tau / (i);
         t += W;
         W *= (wi);

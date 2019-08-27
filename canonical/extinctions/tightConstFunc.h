@@ -23,8 +23,6 @@ public:
     virtual void declareMajorant();
     virtual void declareMinorant();
 
-    virtual ExtinctionType getType() const;
-
     void setIsMajorant(bool param);
 protected:
     virtual Float calculateMaxValue(Float a, Float b) const;

@@ -81,10 +81,6 @@ bool CosFunc::needsDependent() const {
     return false;
 }
 
-ExtinctionType CosFunc::getType() const {
-    return EXT_COS;
-}
-
 void CosFunc::setH(Float param) { h = param; }
 void CosFunc::setS(Float param) { s = param; }
 void CosFunc::setK(Float param) { k = param; }

@@ -1,16 +1,10 @@
 #include "independent.h"
 
-Independent::Independent() : Sampler() {
-    type = SAMP_IND;
-}
+Independent::Independent() : Sampler() { }
 
-Independent::Independent(unsigned int seed) : Sampler(seed) {
-    type = SAMP_IND;
-}
+Independent::Independent(unsigned int seed) : Sampler(seed) { }
 
-Independent::Independent(unsigned int seedOne, unsigned int seedTwo) : Sampler(seedOne, seedTwo) {
-    type = SAMP_IND;
-}
+Independent::Independent(unsigned int seedOne, unsigned int seedTwo) : Sampler(seedOne, seedTwo) { }
 
 Independent::~Independent() {
     // nothing to clean up

@@ -22,8 +22,6 @@ public:
 
     virtual bool needsDependent() const;
 
-    virtual ExtinctionType getType() const;
-
     // getter methods
     Float getC() const;
 

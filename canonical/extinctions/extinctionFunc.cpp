@@ -132,10 +132,6 @@ string Extinction::getName() const {
     return extinctionFunction->getName(FUNC_EXTINCTION);
 }
 
-ExtinctionType Extinction::getType() const {
-    return extinctionFunction->getType();
-}
-
 // getter methods
 Func* Extinction::getExtinctionFunction() const { return extinctionFunction; }
 Func* Extinction::getMajorantFunction() const { return majorantFunction; }

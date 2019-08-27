@@ -78,9 +78,5 @@ bool ScosFunc::needsDependent() const {
     return false;
 }
 
-ExtinctionType ScosFunc::getType() const {
-    return EXT_SCOS;
-}
-
 void ScosFunc::setH(Float param) { h = param; }
 void ScosFunc::setS(Float param) { s = param; }

@@ -64,10 +64,6 @@ void Sampler::reseedJitter(unsigned int seed) {
     jitterRNG = pcg32(2185, seed);
 }
 
-SamplerType Sampler::getType() const {
-    return type;
-}
-
 pcg32 Sampler::getSampleRNG() const {
     return sampleRNG;
 }

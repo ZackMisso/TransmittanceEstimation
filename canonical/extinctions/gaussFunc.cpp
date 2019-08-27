@@ -82,10 +82,6 @@ bool GaussFunc::needsDependent() const {
     return false;
 }
 
-ExtinctionType GaussFunc::getType() const {
-    return EXT_GAUSS;
-}
-
 void GaussFunc::setH(Float param) { h = param; }
 void GaussFunc::setM(Float param) { m = param; }
 void GaussFunc::setSig(Float param) { sig = param; }

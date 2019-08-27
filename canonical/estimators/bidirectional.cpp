@@ -1,9 +1,7 @@
 #include "bidirectional.h"
 #include <tgmath.h>
 
-Bidirectional::Bidirectional() : Estimator() {
-    type = EST_BIDIR;
-}
+Bidirectional::Bidirectional() : Estimator() { }
 
 Float Bidirectional::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
     Float Tr = 0.0;
@@ -42,29 +40,6 @@ Float Bidirectional::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
     a2b.push_back(rec.b);
     b2a.push_back(rec.a);
 
-    // a2b.push_back(rec.a);
-    // do {
-    //     Float maj = rec.extFunc->calculateMajorant(y);
-    //     y += sampleExpFF(rec, sampler, maj);
-    //
-    //     if (y >= rec.b) break;
-    //
-    //     a2b.push_back(y);
-    // } while(true);
-    // a2b.push_back(rec.b);
-    //
-    // y = rec.b;
-    // b2a.push_back(rec.b);
-    // do {
-    //     Float maj = rec.extFunc->calculateMajorant(y);
-    //     y -= sampleExpFF(rec, sampler, maj);
-    //
-    //     if (y <= rec.a) break;
-    //
-    //     b2a.push_back(y);
-    // } while(true);
-    // b2a.push_back(rec.a);
-
     Float k = rec.extFunc->calculateMajorant((rec.b - rec.a) / 2.0);
 
     Float val = exp(-k * (rec.b - rec.a));
@@ -80,11 +55,9 @@ Float Bidirectional::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
         Float maj = rec.extFunc->calculateMajorant(a2b[i]);
         Float ex = (maj - rec.extFunc->calculateExtinction(a2b[i], rec.extCalls)) / maj;
         extValsA2B.push_back(ex);
-        // expA2B.push_back(val / exp(-rec.extFunc->calculateMajorantIntegral(a2b[i - 1], a2b[i])));
         expA2B.push_back(val / exp(-k * (a2b[i] - a2b[i - 1])));
     }
     expA2B.push_back(val / exp(-k * (a2b[a2b.size() - 1] - a2b[a2b.size() - 2])));
-    // expA2B.push_back(val / exp(-rec.extFunc->calculateMajorantIntegral(a2b[a2b.size() - 2], a2b[a2b.size() - 1])));
     extValsA2B.push_back(-1.0);
 
     extValsB2A.push_back(-1.0); // b
@@ -93,13 +66,10 @@ Float Bidirectional::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
         Float ex = (maj - rec.extFunc->calculateExtinction(b2a[i], rec.extCalls)) / maj;
         extValsB2A.push_back(ex);
         expB2A.push_back(val / exp(-k * (b2a[i - 1] - b2a[i])));
-        // expB2A.push_back(val / exp(-rec.extFunc->calculateMajorantIntegral(b2a[i], b2a[i - 1])));
     }
     expB2A.push_back(val / exp(-k * (b2a[b2a.size() - 2] - b2a[b2a.size() - 1])));
-    // expB2A.push_back(val / exp(-rec.extFunc->calculateMajorantIntegral(b2a[b2a.size() - 1], b2a[b2a.size() - 2])));
     extValsB2A.push_back(-1.0); // a
 
-    // int n = max(a2b.size() - 2, b2a.size() - 2);
     int n = a2b.size() + b2a.size() - 4;
 
     for (int l = 0; l <= n; ++l) {
@@ -114,7 +84,6 @@ Float Bidirectional::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
             if (b2a[j] - a2b[i] < 0.0) continue;
 
             Float nee = exp(-k * (b2a[j] - a2b[i]));
-            // Float nee = exp(-rec.extFunc->calculateMajorantIntegral(a2b[i], b2a[j]));
             Float pdf = val / nee;
 
             Float prod = 1.0;
@@ -137,9 +106,6 @@ Float Bidirectional::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
 
             Tr += ist * weight;
         }
-
-        // can get rid of these if statements on every loop
-
     }
 
     Float pathProd = 1.0;

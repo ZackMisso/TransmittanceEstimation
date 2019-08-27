@@ -79,9 +79,5 @@ bool LinIncFunc::needsDependent() const {
     return false;
 }
 
-ExtinctionType LinIncFunc::getType() const {
-    return EXT_LIN_INC;
-}
-
 void LinIncFunc::setM(Float param) { m = param; }
 void LinIncFunc::setY(Float param) { y = param; }

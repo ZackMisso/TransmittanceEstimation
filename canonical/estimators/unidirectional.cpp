@@ -1,9 +1,7 @@
 #include "unidirectional.h"
 #include <tgmath.h>
 
-Unidirectional::Unidirectional() : Estimator() {
-    type = EST_UNI;
-}
+Unidirectional::Unidirectional() : Estimator() { }
 
 Float Unidirectional::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
     Float x = rec.a;

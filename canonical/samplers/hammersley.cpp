@@ -2,19 +2,16 @@
 #include "../util.h"
 
 Hammersley::Hammersley() : Sampler() {
-    type = SAMP_HAMMERSLEY;
     currentDim = 0;
     currentSample = 0;
 }
 
 Hammersley::Hammersley(unsigned int seed) : Sampler(seed) {
-    type = SAMP_HAMMERSLEY;
     currentDim = 0;
     currentSample = 0;
 }
 
 Hammersley::Hammersley(unsigned int seedOne, unsigned int seedTwo) : Sampler(seedOne, seedTwo) {
-    type = SAMP_HAMMERSLEY;
     currentDim = 0;
     currentSample = 0;
 }

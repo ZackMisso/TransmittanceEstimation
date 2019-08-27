@@ -19,12 +19,10 @@ public:
 
     virtual bool needsDependent() const;
 
-    virtual ExtinctionType getType() const;
-
     // setter methods
     void setM(Float param);
     void setY(Float param);
-    
+
 protected:
     virtual Float calculateMaxValue(Float a, Float b) const;
     virtual Float calculateMinValue(Float a, Float b) const;

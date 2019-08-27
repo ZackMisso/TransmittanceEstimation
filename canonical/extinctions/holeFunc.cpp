@@ -115,10 +115,6 @@ bool HoleFunc::needsDependent() const {
     return false;
 }
 
-ExtinctionType HoleFunc::getType() const {
-    return EXT_HOLE;
-}
-
 void HoleFunc::setH(Float param) { h = param; }
 void HoleFunc::setM(Float param) { m = param; }
 void HoleFunc::setSig(Float param) { sig = param; }

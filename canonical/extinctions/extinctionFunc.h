@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../common.h"
-#include "../hist.h"
 #include "func.h"
 
 class Extinction {
@@ -37,8 +36,6 @@ public:
 
     Extinction* copy() const;
     string getName() const;
-
-    ExtinctionType getType() const;
 
     // getter methods
     Func* getExtinctionFunction() const;

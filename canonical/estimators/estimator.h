@@ -2,7 +2,6 @@
 
 #include "../extinctions/extinctionFunc.h"
 #include "../samplers/sampler.h"
-#include "../hist.h"
 
 struct TransmittanceQuaryRecord
 {
@@ -40,8 +39,5 @@ public:
 
     Float pdfUniFF(Float x, const TransmittanceQuaryRecord& rec) const;
     Float pdfExpFF(Float x, const TransmittanceQuaryRecord& rec, Float maj) const;
-
-    EstimatorType getType();
 protected:
-    EstimatorType type;
 };

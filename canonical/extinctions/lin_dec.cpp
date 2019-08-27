@@ -80,9 +80,5 @@ bool LinDecFunc::needsDependent() const {
     return false;
 }
 
-ExtinctionType LinDecFunc::getType() const {
-    return EXT_LIN_DEC;
-}
-
 void LinDecFunc::setM(Float param) { m = param; }
 void LinDecFunc::setY(Float param) { y = param; }

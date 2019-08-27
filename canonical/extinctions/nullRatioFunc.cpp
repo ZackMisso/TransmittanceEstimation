@@ -95,9 +95,5 @@ void NullRatioFunc::declareMinorant() {
     isMajorant = false;
 }
 
-ExtinctionType NullRatioFunc::getType() const {
-    return EXT_NULL_RATIO;
-}
-
 void NullRatioFunc::setIsMajorant(bool param) { isMajorant = param; }
 void NullRatioFunc::setRatio(Float param) { ratio = param; }

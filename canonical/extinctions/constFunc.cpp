@@ -67,10 +67,6 @@ bool ConstFunc::needsDependent() const {
     return false;
 }
 
-ExtinctionType ConstFunc::getType() const {
-    return EXT_CONST;
-}
-
 Float ConstFunc::getC() const { return c; }
 
 // setter methods

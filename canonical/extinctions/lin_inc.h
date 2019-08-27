@@ -19,8 +19,6 @@ public:
 
     virtual bool needsDependent() const;
 
-    virtual ExtinctionType getType() const;
-
     // setter methods
     void setM(Float param);
     void setY(Float param);

@@ -90,8 +90,4 @@ void TightConstFunc::declareMinorant() {
     isMajorant = false;
 }
 
-ExtinctionType TightConstFunc::getType() const {
-    return EXT_TIGHT;
-}
-
 void TightConstFunc::setIsMajorant(bool param) { isMajorant = param; }

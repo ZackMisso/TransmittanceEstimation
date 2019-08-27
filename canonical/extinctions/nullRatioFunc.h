@@ -22,8 +22,6 @@ public:
     virtual void declareMajorant();
     virtual void declareMinorant();
 
-    virtual ExtinctionType getType() const;
-
     // setter methods
     void setIsMajorant(bool param);
     void setRatio(Float param);

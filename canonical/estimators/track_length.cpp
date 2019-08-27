@@ -1,9 +1,7 @@
 #include "track_length.h"
 #include <tgmath.h>
 
-TrackLength::TrackLength() : Estimator() {
-    type = EST_TRACKLENGTH;
-}
+TrackLength::TrackLength() : Estimator() { }
 
 Float TrackLength::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
     // Choose a constant k such that k >= ext(x) for all x[a,b]

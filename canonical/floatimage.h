@@ -2,8 +2,7 @@
     \file floatimage.h
     \brief Contains the definition of a floating-point image class with an arbitrary number of channels
     \author Wojciech Jarosz
-
-    CS 89/189 Computational Aspects of Digital Photography C++ basecode.
+    \author Zack Misso
 */
 #pragma once
 

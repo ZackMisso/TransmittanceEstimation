@@ -2,21 +2,18 @@
 #include "permute.h"
 
 LatinHyperCubesInPlace::LatinHyperCubesInPlace() : Sampler() {
-    type = SAMP_LATIN_IP;
     currentDim = 0;
     currentSample = 0;
     jit = 0.0;
 }
 
 LatinHyperCubesInPlace::LatinHyperCubesInPlace(unsigned int seed) : Sampler(seed) {
-    type = SAMP_LATIN_IP;
     currentDim = 0;
     currentSample = 0;
     jit = 0.0;
 }
 
 LatinHyperCubesInPlace::LatinHyperCubesInPlace(unsigned int seedOne, unsigned int seedTwo) : Sampler(seedOne, seedTwo) {
-    type = SAMP_LATIN_IP;
     currentDim = 0;
     currentSample = 0;
     jit = 0.0;

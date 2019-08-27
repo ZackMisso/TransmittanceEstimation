@@ -2,7 +2,7 @@
 #include <tgmath.h>
 
 Estimator::Estimator() {
-    type = EST_NONE;
+    // does nothing
 }
 
 Estimator::~Estimator() {
@@ -27,8 +27,4 @@ Float Estimator::pdfExpFF(Float ffd, const TransmittanceQuaryRecord& rec, Float 
 
 Float Estimator::pdfUniFF(Float x, const TransmittanceQuaryRecord& rec) const {
     return 1.0 / (rec.b - rec.a);
-}
-
-EstimatorType Estimator::getType() {
-    return type;
 }

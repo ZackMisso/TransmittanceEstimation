@@ -128,8 +128,6 @@ add_executable(transm_est
     exceptions.h
     floatimage.h
     floatimage.cpp
-    hist.h
-    hist.cpp
     main.cpp
     util.h
     util.cpp

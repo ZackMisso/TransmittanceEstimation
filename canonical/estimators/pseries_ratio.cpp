@@ -1,11 +1,8 @@
 #include "pseries_ratio.h"
 #include <tgmath.h>
 
-Pseries_Ratio::Pseries_Ratio() : Estimator() {
-    type = EST_PSERIES_RAT;
-}
+Pseries_Ratio::Pseries_Ratio() : Estimator() { }
 
-// NOTE: THIS ASSUMES THAT THE MAJORANT IS CONSTANT
 Float Pseries_Ratio::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
     Float sample = sampler->next1D();
 
@@ -22,16 +19,7 @@ Float Pseries_Ratio::T(TransmittanceQuaryRecord& rec, Sampler* sampler) const {
         Float x = sampleUniFF(rec, sampler);
         Tr *= 1.0 - rec.extFunc->calculateExtinction(x, rec.extCalls) / maj;
         prob *= tau / Float(i);
-
-        // std::cout << "pre i: " << i << std::endl;
-        // std::cout << "pre Tr: " << Tr * exp(-tau) << std::endl;
-        // std::cout << "pre prob: " << prob << std::endl;
-        // std::cout << std::endl;
     }
-
-    // std::cout << "i: " << i << std::endl;
-    // std::cout << "Tr: " << Tr << std::endl;
-    // std::cout << "prob: " << prob << std::endl;
 
     rec.transmittance = Tr;
 

@@ -1,12 +1,12 @@
 Canonical Tests
 
 In this repository we provide the implementation of generating our canonical
-plots as seen in figure x of the paper Integral formulations of volumetric
+plots as seen in the paper Integral formulations of volumetric
 transmittance. While our paper utilizes a false color transformation and
 provides isocontours, we leave out our that messy implementation and just
 provide the logic and means of generating the base heatmaps. We also provide
 an intuitive abstraction of transmittance estimators for any individuals who
-want to test their own against ours and previous work.
+wants to test their own against ours and previous work.
 
 To compile the program simply do the following:
 
@@ -50,10 +50,10 @@ lin_dec - Linear decreasing extinction: f(x) = -m * x + y
 List of available transmittance estimators:
 
 bidirectional - Bidirectional MIS
-expected - GT
+expected - Ground Truth
 next_flight_ratio - Next-flight
-pseries_cmf - Power-series CMF
-pseries_cumulative - Power-series cumulative
+pseries_cmf - p-series CMF
+pseries_cumulative - p-series cumulative
 pseries_next_flight_ratio - Next-flight reformulated in p-series framework
 pseries_ratio - Ratio-tracking reformulated in p-series framework
 ratio - Ratio_tracking

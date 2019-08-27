@@ -34,9 +34,10 @@ CanonicalTest::CanonicalTest(std::string prefix,
 
     for (int i = 0; i < resolution; ++i)
     {
+        // debug status
         // if (i % 100 == 0)
         // {
-        cout << extinction->getName() << " " << estimator->getName() << " i: " << i << endl;
+            cout << extinction->getName() << " " << estimator->getName() << " i: " << i << endl;
         // }
 
         for (int j = 0; j < resolution; ++j)
@@ -155,7 +156,7 @@ void CanonicalTest::runEstimator(Extinction* ext,
             trans /= Float(samples);
             cost_tmp /= Float(samples);
 
-            if (est->getType() == EST_EXPECTED) i = trials;
+            if (est->getName() == "expected") i = trials;
 
             Float mean_new = mean + (1.0 / Float(i+1)) * (trans - mean);
             var = var + (trans - mean) * (trans - mean_new);
@@ -184,7 +185,7 @@ void CanonicalTest::runEstimator(Extinction* ext,
             int cost_tmp = rec.extCalls;
             sampler->nextSample();
 
-            if (est->getType() == EST_EXPECTED) cost_tmp = max_cost;
+            if (est->getName() == "expected") cost_tmp = max_cost;
 
             cost += cost_tmp;
 

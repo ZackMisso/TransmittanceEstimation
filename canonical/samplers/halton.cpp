@@ -1,19 +1,16 @@
 #include "halton.h"
 
 Halton::Halton() : Sampler() {
-    type = SAMP_HALTON;
     currentDim = 0;
     currentSample = 0;
 }
 
 Halton::Halton(unsigned int seed) : Sampler(seed) {
-    type = SAMP_HALTON;
     currentDim = 0;
     currentSample = 0;
 }
 
 Halton::Halton(unsigned int seedOne, unsigned int seedTwo) : Sampler(seedOne, seedTwo) {
-    type = SAMP_HALTON;
     currentDim = 0;
     currentSample = 0;
 }

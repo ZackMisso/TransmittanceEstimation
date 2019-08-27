@@ -50,8 +50,6 @@ public:
     Float getMin() const { return min; }
     Float getMax() const { return max; }
 
-    virtual ExtinctionType getType() const = 0;
-
 protected:
     virtual Float calculateMaxValue(Float a, Float b) const = 0;
     virtual Float calculateMinValue(Float a, Float b) const = 0;

@@ -28,7 +28,6 @@ public:
 
     virtual string getName() const = 0;
 
-    SamplerType getType() const;
     pcg32 getSampleRNG() const;
     pcg32 getJitterRNG() const;
     uint32_t getSampSeed() const;
@@ -44,7 +43,6 @@ public:
 protected:
     pcg32 sampleRNG;
     pcg32 jitterRNG;
-    SamplerType type;
     uint32_t sampSeed;
     uint32_t jitSeed;
     uint32_t numDimensions;
