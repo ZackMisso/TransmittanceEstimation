@@ -1,3 +1,6 @@
+Hello! Will have this readme and the tests cleaned up by this weekend (around Oct 5th). Will also finish incorporating
+my pbrt implementation and create a quick script for generating them.
+
 Canonical Tests
 
 In this repository we provide the implementation of generating our canonical
