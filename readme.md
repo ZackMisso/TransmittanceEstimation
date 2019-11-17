@@ -1,4 +1,4 @@
-Hello! Will have this readme and the tests cleaned up by this weekend (around Oct 5th). Will also finish incorporating
+Hello! Will have this readme and the tests cleaned up soon. Will also finish incorporating
 my pbrt implementation and create a quick script for generating them.
 
 Canonical Tests
